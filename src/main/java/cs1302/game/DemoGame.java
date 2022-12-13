@@ -20,7 +20,7 @@ import javafx.scene.shape.Rectangle;
 public class DemoGame extends Game {
 
     private Random rng;       // random number generator
-    private  playerSnake player; // some rectangle to represent the player
+    private playerSnake player; // some rectangle to represent the player
     private IdleCat cat;      // the not so idle cat (see IdleCat.java)
 
     public Direction direction = Direction.RIGHT;
@@ -74,24 +74,49 @@ public class DemoGame extends Game {
        // isKeyPressed( KeyCode.DOWN, () -> player.setY(player.getY() + 10.0));
 
        isKeyPressed( KeyCode.LEFT, () -> {
+        if(!(direction == Direction.LEFT) && !(direction == Direction.RIGHT)){
             //player.setX(player.getX() - 10.0);
+            if(direction == Direction.UP){
+            player.setRotate(player.getRotate() - 90);
+            } else {
+              player.setRotate(player.getRotate() + 90);
+            }
             direction = Direction.LEFT;
+        }
             });
 
         isKeyPressed( KeyCode.RIGHT, () -> {
+            if(!(direction == Direction.RIGHT) && !(direction == Direction.LEFT)){
             //player.setX(player.getX() + 10.0);
+            if(direction == Direction.UP){
+                player.setRotate(player.getRotate() + 90);
+                } else {
+                  player.setRotate(player.getRotate() - 90);
+                }
             direction = Direction.RIGHT;
-            });
+      }  });
 
         isKeyPressed( KeyCode.UP, () -> {
+            if(!(direction == Direction.UP) && !(direction == Direction.DOWN)){
             //player.setY(player.getY() - 10.0);
+            if(direction == Direction.LEFT){
+                player.setRotate(player.getRotate() + 90);
+                } else {
+                  player.setRotate(player.getRotate() - 90);
+                }
             direction = Direction.UP;
-            });
-      
+      }  });
+
         isKeyPressed( KeyCode.DOWN, () -> {
+            if(!(direction == Direction.DOWN) && !(direction == Direction.UP)){
             //player.setY(player.getY() - 10.0);
+            if(direction == Direction.LEFT){
+                player.setRotate(player.getRotate() - 90);
+                } else {
+                  player.setRotate(player.getRotate() + 90);
+                }
             direction = Direction.DOWN;
-            });
+      }  });
 
 
         // <--------------------------------------------------------------------
@@ -101,8 +126,8 @@ public class DemoGame extends Game {
         // update idle cat
         cat.update();
         moveSnakeHead(player);
-        
-    
+
+
 
     } // update
 
@@ -116,7 +141,7 @@ public class DemoGame extends Game {
      //   player.setY(rng.nextDouble() * (getHeight() - player.getHeight()));
     } // handleClickPlayer
 
-    
+
 
     //Snake head is moved in the direction specified
     private void moveSnakeHead(ImageView snakeHead){
@@ -129,21 +154,18 @@ public class DemoGame extends Game {
             System.out.println("YOU FUCKING LOSE YOU DUMBASS BITCH XDDDDD");
         } // if
 
-        
+
         if(direction.equals(Direction.RIGHT)){
             player.setX(player.getX() + player.dx);
             snakeHead.setTranslateX(xPos);
         } else if(direction.equals(Direction.LEFT)) {
             player.setX(player.getX() - player.dx);
-            setRotate(this.getRotate() + 270);
             snakeHead.setTranslateX(xPos);
         }else if(direction.equals(Direction.UP)) {
             player.setY(player.getY() - player.dy);
-            setRotate(this.getRotate() + 270);
             snakeHead.setTranslateY(yPos);
         }else if(direction.equals(Direction.DOWN)) {
             player.setY(player.getY() + player.dy);
-            setRotate(this.getRotate() + 270);
             snakeHead.setTranslateY(yPos);
         }
     }
