@@ -1,13 +1,18 @@
 package cs1302.omega;
 
 import cs1302.game.DemoGame;
+import javafx.geometry.Insets;
 
+import javafx.scene.layout.CornerRadii;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -27,7 +32,7 @@ public class OmegaApp extends Application {
     public void start(Stage stage) {
 
         // demonstrate how to load local asset using "file:resources/"
-        Image bannerImage = new Image("file:resources/readme-banner.png");
+        Image bannerImage = new Image("file:resources/sprites/A_black_image.jpg");
         ImageView banner = new ImageView(bannerImage);
         banner.setPreserveRatio(true);
         banner.setFitWidth(640);
@@ -38,14 +43,18 @@ public class OmegaApp extends Application {
             = new Label("Move left/right with arrow keys; click rectangle to teleport.");
 
         // demo game provided with the starter code
-        DemoGame game = new DemoGame(640, 240);
-
+        DemoGame game = new DemoGame(640, 640);
+        VBox gameWindow = new VBox();
+        gameWindow.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        gameWindow.getChildren().addAll(game);
         // setup scene
-        VBox root = new VBox(banner, notice, instructions, game);
+        VBox root = new VBox(gameWindow, notice, instructions);
         Scene scene = new Scene(root);
 
+
+
         // setup stage
-        stage.setTitle("OmegaApp!");
+        stage.setTitle("Snake!");
         stage.setScene(scene);
         stage.setOnCloseRequest(event -> Platform.exit());
         stage.sizeToScene();
