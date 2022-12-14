@@ -69,25 +69,25 @@ public abstract class Game extends Region {
         addEventFilter(KeyEvent.KEY_PRESSED, event -> handleKeyPressed(event));
         addEventFilter(KeyEvent.KEY_RELEASED, event -> handleKeyReleased(event));
         initGameLoop();
-        labelScore = new Label ("Score : " + score); 
+        labelScore = new Label ("Score : " + score);
         labelScore.setPrefWidth(300);
         labelScore.setPrefHeight(650);
         labelScore.setTextFill(Color.CHARTREUSE);
         labelScore.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         labelScore.setAlignment(Pos.BOTTOM_LEFT);
         getChildren().add(labelScore);
-        labelScore.setAlignment(Pos.BOTTOM_LEFT);   
+        labelScore.setAlignment(Pos.BOTTOM_LEFT);
 
- 
-        labelhighScore = new Label ("High Score : " + highScore); 
+
+        labelhighScore = new Label ("High Score : " + highScore);
         labelhighScore.setPrefWidth(200);
         labelhighScore.setPrefHeight(700);
         labelhighScore.setTextFill(Color.CHARTREUSE);
         labelhighScore.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         labelhighScore.setAlignment(Pos.BOTTOM_RIGHT);
       //  getChildren().add(labelhighScore);
-        labelhighScore.setAlignment(Pos.BOTTOM_RIGHT);  
-       
+        labelhighScore.setAlignment(Pos.BOTTOM_RIGHT);
+
     } // Game
 
     /**
@@ -99,12 +99,11 @@ public abstract class Game extends Region {
             update();
             gameTicks++;
             labelScore.setText("Score : " + score);
-            if(score > highScore){
+            if (score > highScore) {
                 highScore = score;
                 labelhighScore.setText("High Score : " + highScore);
             }
-                     
-        });
+        } );
         loop.setCycleCount(Timeline.INDEFINITE);
         loop.getKeyFrames().add(updateFrame);
     } // initGameLoop
@@ -173,7 +172,7 @@ public abstract class Game extends Region {
             init();
             initialized = true;
         } // if
-        
+
         loop.play();
     } // start
 
@@ -181,27 +180,27 @@ public abstract class Game extends Region {
      * Stop the main game loop.
      */
     public final void stop() {
-        gameOver = new Label ("Game Over"); 
+        gameOver = new Label ("Game Over");
         gameOver.setPrefWidth(650);
         gameOver.setPrefHeight(650);
         gameOver.setTextFill(Color.CRIMSON);
         gameOver.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
         gameOver.setAlignment(Pos.CENTER);
         getChildren().add(gameOver);
-        gameOver.setAlignment(Pos.CENTER); 
+        gameOver.setAlignment(Pos.CENTER);
         loop.pause();
 
         labelScore.setText("Score : " + score);
-        if(highScore > score){
+        if (highScore > score) {
             highScore = score;
             labelhighScore.setText("High Score : " + highScore);
-           
         }
+
         setOnKeyPressed(e -> {
-            if (e.getCode() == KeyCode.ENTER){
-                OmegaApp.Restart(highScore);
+            if (e.getCode() == KeyCode.ENTER) {
+                OmegaApp.restart(highScore);
             }
-        });
+        } );
 
 
     } // stop
@@ -229,9 +228,9 @@ public abstract class Game extends Region {
         return bounds;
     } // getGameBounds
 
-    
 
 
-    
+
+
 
 } // Game
