@@ -8,6 +8,7 @@ import javafx.application.Application;
  */
 public class OmegaDriver {
     int highScore;
+
     /**
      * Main entry-point into the application.
      * @param args the command-line arguments.

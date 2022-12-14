@@ -22,7 +22,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**
- * REPLACE WITH NON-SHOUTING DESCRIPTION OF YOUR APP.
+ * The OmegaApp class extends Application and is.
  */
 public class OmegaApp extends Application {
     static Label notice;
@@ -37,7 +37,7 @@ public class OmegaApp extends Application {
 
     static Image noticeImage;
     static ImageView banner;
-   
+
     static Background backnoticeImage;
     static BackgroundImage backnoticeFirst;
     static VBox gameWindow;
@@ -56,7 +56,7 @@ public class OmegaApp extends Application {
     @Override
     public void start(Stage stage) {
         test = stage;
-        SetupScene(0);
+        setupScene(0);
 
 
         // setup stage
@@ -68,30 +68,49 @@ public class OmegaApp extends Application {
 
         // play the game
         game.play();
-    
+
     } // start
 
-    public static void Restart(int highScore){  
-        System.out.println(scores + " " + highScore);  
-        if (scores < highScore){
+    /**
+     * This method restarts the game and if the highScore
+     * parameter is larger than the previous high score
+     * then the new high score is sent to the setupScene
+     * method to get displayed on a label.
+     *
+     * @param highScore saves the high score so that
+     * when the game is restarted the high score is still
+     * there
+     */
+    public static void restart(int highScore) {
+        System.out.println(scores + " " + highScore);
+        if (scores < highScore) {
             scores = highScore;
-        }  
-System.out.println(scores + " " + highScore);
-SetupScene(scores);
+        }
+        System.out.println(scores + " " + highScore);
+        setupScene(scores);
         num = 0;
     }
 
-    static void clearScene(){
+    /**
+     * This method clears all the children inside gameWindow
+     * after the game is over so that the game can be restarted.
+     */
+    static void clearScene() {
         gameWindow.getChildren().clear();
-        
     }
 
-   static  void SetupScene(int scores){
+
+    /**
+     * This methods sets up all the necessary objects needed
+     * for the snake game and adds them to the gameWindow.
+     *
+     * @param scores The high score of the game that is diplayed
+     * and saved even after game over.
+     */
+    static void setupScene(int scores) {
         bannerImage = new Image("file:resources/sprites/GreenBackground.png");
         backimageFirst = new BackgroundImage(bannerImage, null, null, null, null);
         backImage = new Background(backimageFirst);
-      
-      
 
         noticeImage = new Image("file:resources/sprites/White_full.png");
         backnoticeFirst = new BackgroundImage(noticeImage, null, null, null, null);
@@ -107,26 +126,26 @@ SetupScene(scores);
         gameWindow.setBackground(backImage);
 
 
-        Label labelhighScore = new Label ("High Score : " + scores); 
+        Label labelhighScore = new Label ("High Score : " + scores);
         labelhighScore.setPrefWidth(650);
         labelhighScore.setPrefHeight(0);
         labelhighScore.setTextFill(Color.CHARTREUSE);
         labelhighScore.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         labelhighScore.setAlignment(Pos.BOTTOM_LEFT);
         labelhighScore.setAlignment(Pos.BOTTOM_LEFT);
-       
+
         gameWindow.getChildren().addAll(game, labelhighScore, notice);
-       
+
         root = new VBox(gameWindow);
         scene = new Scene(root);
         test.setScene(scene);
-        
+
         // play the game
         game.play();
 
     }
 
-    
+
 
 
 
