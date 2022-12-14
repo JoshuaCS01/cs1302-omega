@@ -45,9 +45,6 @@ public class DemoGame extends Game {
     //List of all snake body parts
     private final ArrayList<ImageView> snakeBody = new ArrayList<>();
 
-    //Game ticks is how many times the snake have moved
-
-
     /**
      * Construct a {@code DemoGame} object.
      * @param width scene width
@@ -75,8 +72,6 @@ public class DemoGame extends Game {
         snakeBody.add(snakeTail);
         snakeBody.get(1).setX(1);
         snakeBody.get(1).setY(60);
-
-
         getChildren().addAll(player, cat, snakeTail);         // add to main container
 
         player.setX(50);                           // 50px in the x direction (right)
