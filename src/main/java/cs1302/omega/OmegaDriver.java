@@ -2,11 +2,12 @@ package cs1302.omega;
 
 import javafx.application.Application;
 
+
 /**
  * Driver for the {@code OmegaApp} class.
  */
 public class OmegaDriver {
-
+    int highScore;
     /**
      * Main entry-point into the application.
      * @param args the command-line arguments.

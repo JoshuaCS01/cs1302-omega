@@ -1,12 +1,21 @@
 package cs1302.game;
 
+import cs1302.game.DemoGame;
+import cs1302.omega.OmegaApp;
+import javafx.scene.paint.Color;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import java.util.BitSet;
+import javafx.scene.text.FontWeight;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.Font;
+import java.util.concurrent.TimeUnit;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.Event;
+import javafx.geometry.Pos;
 import javafx.geometry.Bounds;
 import javafx.geometry.BoundingBox;
 import javafx.scene.input.KeyEvent;
@@ -36,8 +45,14 @@ public abstract class Game extends Region {
     private final Duration fpsTarget;                // target duration for game loop
     private final Timeline loop = new Timeline();    // timeline for main game loop
     private final BitSet keysPressed = new BitSet(); // set of currently pressed keys
-
+    public int gameTicks = 0;
+    public int score;
+    public int highScore;
     private boolean initialized = false;             // play() has been called?
+    Label labelScore;
+    Label labelhighScore;
+    Label instructions;
+    Label gameOver;
 
     /**
      * Construct a {@code Game} object.
@@ -54,15 +69,41 @@ public abstract class Game extends Region {
         addEventFilter(KeyEvent.KEY_PRESSED, event -> handleKeyPressed(event));
         addEventFilter(KeyEvent.KEY_RELEASED, event -> handleKeyReleased(event));
         initGameLoop();
+        labelScore = new Label ("Score : " + score); 
+        labelScore.setPrefWidth(300);
+        labelScore.setPrefHeight(650);
+        labelScore.setTextFill(Color.CHARTREUSE);
+        labelScore.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+        labelScore.setAlignment(Pos.BOTTOM_LEFT);
+        getChildren().add(labelScore);
+        labelScore.setAlignment(Pos.BOTTOM_LEFT);   
+
+ 
+        labelhighScore = new Label ("High Score : " + highScore); 
+        labelhighScore.setPrefWidth(200);
+        labelhighScore.setPrefHeight(700);
+        labelhighScore.setTextFill(Color.CHARTREUSE);
+        labelhighScore.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+        labelhighScore.setAlignment(Pos.BOTTOM_RIGHT);
+      //  getChildren().add(labelhighScore);
+        labelhighScore.setAlignment(Pos.BOTTOM_RIGHT);  
+       
     } // Game
 
     /**
      * Initialize the main game loop.
      */
     private void initGameLoop() {
-        KeyFrame updateFrame = new KeyFrame(fpsTarget, event -> {
+        KeyFrame updateFrame = new KeyFrame(Duration.millis(125), event -> {
             requestFocus();
             update();
+            gameTicks++;
+            labelScore.setText("Score : " + score);
+            if(score > highScore){
+                highScore = score;
+                labelhighScore.setText("High Score : " + highScore);
+            }
+                     
         });
         loop.setCycleCount(Timeline.INDEFINITE);
         loop.getKeyFrames().add(updateFrame);
@@ -132,6 +173,7 @@ public abstract class Game extends Region {
             init();
             initialized = true;
         } // if
+        
         loop.play();
     } // start
 
@@ -139,7 +181,29 @@ public abstract class Game extends Region {
      * Stop the main game loop.
      */
     public final void stop() {
-        loop.stop();
+        gameOver = new Label ("Game Over"); 
+        gameOver.setPrefWidth(650);
+        gameOver.setPrefHeight(650);
+        gameOver.setTextFill(Color.CRIMSON);
+        gameOver.setFont(Font.font("Verdana", FontWeight.BOLD, 50));
+        gameOver.setAlignment(Pos.CENTER);
+        getChildren().add(gameOver);
+        gameOver.setAlignment(Pos.CENTER); 
+        loop.pause();
+
+        labelScore.setText("Score : " + score);
+        if(highScore > score){
+            highScore = score;
+            labelhighScore.setText("High Score : " + highScore);
+           
+        }
+        setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER){
+                OmegaApp.Restart(highScore);
+            }
+        });
+
+
     } // stop
 
     /**
@@ -164,5 +228,10 @@ public abstract class Game extends Region {
     public final Bounds getGameBounds() {
         return bounds;
     } // getGameBounds
+
+    
+
+
+    
 
 } // Game
