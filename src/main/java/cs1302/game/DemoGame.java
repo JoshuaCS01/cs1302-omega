@@ -58,12 +58,12 @@ public class DemoGame extends Game {
         setLogLevel(Level.INFO);             // enable logging
         this.rng = new Random();             // random number generator
         this.player = new playerSnake(this); // some rectangle to represent the player
-        this.cat  = new IdleCat(this);  
+        this.cat  = new IdleCat(this);
         snakeTail_1 = new ImageView("file:resources/sprites/Body.png");
         snakeTail_1.setFitWidth(50);
         snakeTail_1.setFitHeight(50);
-        
-           
+
+
         // the not so idle cat (see IdleCat.java)
     } // DemoGame
 
@@ -88,7 +88,7 @@ public class DemoGame extends Game {
         positions.add(new Position(player.getX() + xPos, player.getY() + yPos));
       //  snakeBody.add(player);
       //  snakeBody.add(snakeTail_1);
-       
+
     } // init
 
     /** {@inheritDoc} */
@@ -115,7 +115,7 @@ public class DemoGame extends Game {
             if(direction == Direction.UP){
             player.setRotate(player.getRotate() - 90);
             } else {
-              player.setRotate(player.getRotate() + 90);  
+              player.setRotate(player.getRotate() + 90);
             }
             direction = Direction.LEFT;
         }
@@ -127,7 +127,7 @@ public class DemoGame extends Game {
             if(direction == Direction.UP){
                 player.setRotate(player.getRotate() + 90);
                 } else {
-                  player.setRotate(player.getRotate() - 90);  
+                  player.setRotate(player.getRotate() - 90);
                 }
             direction = Direction.RIGHT;
       }  });
@@ -138,23 +138,23 @@ public class DemoGame extends Game {
             if(direction == Direction.LEFT){
                 player.setRotate(player.getRotate() + 90);
                 } else {
-                  player.setRotate(player.getRotate() - 90);  
+                  player.setRotate(player.getRotate() - 90);
                 }
             direction = Direction.UP;
       }  });
 
-      
+
         isKeyPressed( KeyCode.DOWN, () -> {
             if(!(direction == Direction.DOWN) && !(direction == Direction.UP)){
             //player.setY(player.getY() - 10.0);
             if(direction == Direction.LEFT){
                 player.setRotate(player.getRotate() - 90);
                 } else {
-                  player.setRotate(player.getRotate() + 90);  
+                  player.setRotate(player.getRotate() + 90);
                 }
             direction = Direction.DOWN;
       }  });
-        
+
       if(didILose(player) == true){
         stop();
     }
@@ -172,15 +172,15 @@ public class DemoGame extends Game {
         prevY = player.getY();
 
         moveSnakeHead(player);
-       
+
         for (int i = 1; i < snakeBody.size(); i++) {
             moveSnakeTail(snakeBody.get(i),i);
         }
-        
+
         if(didILose(player) == true){
             stop();
         }
-        
+
     } // update
 
     /**
@@ -193,7 +193,7 @@ public class DemoGame extends Game {
      //   player.setY(rng.nextDouble() * (getHeight() - player.getHeight()));
     } // handleClickPlayer
 
-    
+
 
     //Snake head is moved in the direction specified
     private void moveSnakeHead(ImageView snakeHead){
@@ -207,11 +207,11 @@ public class DemoGame extends Game {
            // System.out.println("YOU FUCKING LOSE YOU DUMBASS BITCH XDDDDD");
            // stop();
 
-        
-        
+
+
          // if
 
-        
+
         if(direction.equals(Direction.RIGHT)){
             player.setX(player.getX() + player.dx);
             snakeHead.setTranslateX(xPos);
@@ -227,11 +227,11 @@ public class DemoGame extends Game {
         }
     }
     private void moveSnakeTail(ImageView snakeTail, int tailNumber){
- /*  
-    if(tailNumber == 1){ 
+ /*
+    if(tailNumber == 1){
     double yPos = prevY -5;
     double xPos = prevX + 7;
-    
+
 
         snakeTail.setX(xPos - 10);
         snakeTail.setY(yPos + 12);
@@ -269,28 +269,28 @@ public class DemoGame extends Game {
         if(direction == Direction.LEFT){
            snakeTail.setX(snakeBody.get(snakeBody.size()-2).getX()+ 35);
            snakeTail.setY(snakeBody.get(snakeBody.size()-2).getY());
-         
+
         } else if(direction == Direction.RIGHT){
             snakeTail.setX((snakeBody.get(snakeBody.size()-2).xProperty()).intValue() - 35);
             snakeTail.setY((snakeBody.get(snakeBody.size()-2).yProperty()).intValue());
-          
+
          }else if(direction == Direction.UP){
             snakeTail.setX(snakeBody.get(snakeBody.size()-2).getX());
             snakeTail.setY(snakeBody.get(snakeBody.size()-2).getY() + 35);
-         
+
          } else if(direction == Direction.DOWN){
             snakeTail.setX(snakeBody.get(snakeBody.size()-2).getX());
             snakeTail.setY(snakeBody.get(snakeBody.size()-2).getY() -35);
-          
+
          }
-         
-         
-        
+
+
+
 
          for(int i = 0; i < snakeBody.size(); i ++){
 //System.out.println(snakeBody.get(i).getX() + " : " + snakeBody.get(i).getY());
          }
-         
+
         //getChildren().add(snakeTail);
         //anchorPane.getChildren().add(snakeTail);
 
@@ -300,8 +300,8 @@ public class DemoGame extends Game {
    //             snakeSize,snakeSize);
  ////       snakeBody.add(snakeTail);
    //     anchorPane.getChildren().add(snakeTail);
-    
-    }   
+
+    }
 
     void addBodyPart(ActionEvent event) {
         addSnakeTail();
