@@ -4,7 +4,7 @@ import javafx.geometry.Bounds;
 import javafx.scene.image.ImageView;
 
 /**
- * A simple "sprite" of a snake head
+ * A simple "sprite" of a snake head.
  */
 public class PlayerSnake extends ImageView {
 
@@ -27,23 +27,6 @@ public class PlayerSnake extends ImageView {
         this.dx = 50; // each update, add 2 to x (to start)
         this.dy = 50; // each update, add 0 to y (to start)
     }
-// IdleCat
-
-    // public void update() {
-    //  Bounds catBounds = getBoundsInParent();
-    //  Bounds gameBounds = game.getGameBounds();
-    //  if (catBounds.getMaxX() > gameBounds.getMaxX()) {
-    //      dx *= - .1;      // change x direction
-    //      setScaleX(-1.0); // flip this image view horizontally
-    //  } else if (catBounds.getMinX() < gameBounds.getMinX()) {
-    //      dx *= - .1;      // change x direction
-    //      setScaleX(1.0);  // flip this image view back
-    //  } // if
-    //  setX(getX() + dx);   // move this cat!
-
-
-
-    // } // update
 
 
 }

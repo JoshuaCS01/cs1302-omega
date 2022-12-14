@@ -27,7 +27,14 @@ public class IdleCat extends ImageView {
     } // IdleCat
 
     /**
-     * Update the position of the cat.
+     * This method checks to see if the snakes head came
+     * into contact with the apple. If it has then the apple
+     * is spawned in a random location and true is returned.
+     * If not then false is returned.
+     *
+     * @param player the  head of the snake.
+     * @return boolean based on whether or not the
+     * snakes head came into contact with the apple
      */
     public boolean update(PlayerSnake player) {
         if ((Math.abs(player.getX() - this.getX()) < 30) &&
