@@ -19,7 +19,6 @@ import javafx.geometry.Bounds;
 import java.util.List;
 import java.lang.Thread;
 import java.nio.channels.UnresolvedAddressException;
-
 import javafx.scene.shape.Rectangle;
 
 /**
